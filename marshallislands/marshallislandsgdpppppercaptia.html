@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marshall Islands GDP PPP Per Capita (International Dollars)</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Marshall Islands: GDP PPP Per Capita (International Dollars) (1997-2026)</h2>
+        <div style="height: 400px;"><canvas id="pppPerCapitaChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="../marshallislands.html" style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Marshall Islands Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+    <script>
+        // Source: IMF World Economic Outlook (October 2026) via IMF DataMapper.
+        // Values are shown for 1997-2026; missing observations remain blank.
+        const years = [1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+        const values = [2107.205,2085.832,2054.257,2140.055,2376.65,2540.403,2534.466,2560.984,2650.434,2721.629,2880.468,2678.326,2803.869,2959.348,2991.826,3042.265,3257.077,3328.4,3494.184,3704.853,4048.219,4525.061,5220.392,5168.281,5716.913,6229.712,6292.356,6765.563,7254.09,7962.011];
+        if (!values.every(value => value === null)) {
+            new Chart(document.getElementById('pppPerCapitaChart'), {
+                type: 'line',
+                data: { labels: years, datasets: [{
+                    label: "PPP Per Capita", data: values, borderColor: "#20c599",
+                    backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6, tension: 0.3
+                }] },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: context => " " + "Marshall Islands" + " PPP Per Capita: $" + context.parsed.y.toLocaleString() } }
+                    },
+                    scales: {
+                        y: { ticks: { callback: value => '$' + value.toLocaleString() }, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        } else {
+            const canvas = document.getElementById('pppPerCapitaChart');
+            const empty = document.createElement('p');
+            empty.textContent = 'No IMF data is available for this country and indicator.';
+            empty.style.cssText = 'color: #64748b; font-size: 16px; padding: 80px 20px; text-align: center;';
+            canvas.replaceWith(empty);
+        }
+    </script>
+</body>
+</html>

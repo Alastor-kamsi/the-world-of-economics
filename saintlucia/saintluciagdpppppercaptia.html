@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saint Lucia GDP PPP Per Capita (International Dollars)</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Saint Lucia: GDP PPP Per Capita (International Dollars) (1980-2026)</h2>
+        <div style="height: 400px;"><canvas id="pppPerCapitaChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="../saintlucia.html" style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Saint Lucia Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+    <script>
+        // Source: IMF World Economic Outlook (October 2026) via IMF DataMapper.
+        // Values are shown for 1980-2026; missing observations remain blank.
+        const years = [1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+        const values = [2504.869,2843.104,3042.923,3247.904,3584.216,4098.873,4707.783,4938.919,5747.252,6437.026,7266.791,7450.966,8104.935,8222.953,8406.305,8596.061,8875.763,8840.845,9372.721,9633.049,9737.197,9519.718,9623.668,10148.333,11092.67,11310.121,12316.058,12809.579,13608.405,13350.174,13498.75,14372.385,14517.899,14371.669,14747.077,14782.833,15426.057,16141.729,17429.575,18662.786,15135.529,19141.236,24440.156,26273.518,28054.825,28448.67,29573.459];
+        if (!values.every(value => value === null)) {
+            new Chart(document.getElementById('pppPerCapitaChart'), {
+                type: 'line',
+                data: { labels: years, datasets: [{
+                    label: "PPP Per Capita", data: values, borderColor: "#20c599",
+                    backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6, tension: 0.3
+                }] },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: context => " " + "Saint Lucia" + " PPP Per Capita: $" + context.parsed.y.toLocaleString() } }
+                    },
+                    scales: {
+                        y: { ticks: { callback: value => '$' + value.toLocaleString() }, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        } else {
+            const canvas = document.getElementById('pppPerCapitaChart');
+            const empty = document.createElement('p');
+            empty.textContent = 'No IMF data is available for this country and indicator.';
+            empty.style.cssText = 'color: #64748b; font-size: 16px; padding: 80px 20px; text-align: center;';
+            canvas.replaceWith(empty);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mexico Population History</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Mexico: Total Population (1960–2026)</h2>
+        <div style="height: 400px;"><canvas id="mexicoChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="index.html" 
+            style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const years = Array.from({length: 67}, (_, i) => 1960 + i);
+        const mexicoData = [
+            36.27, 37.49, 38.77, 40.10, 41.50, 42.97, 44.49, 46.06, 47.67, 49.33,
+            51.04, 52.78, 54.54, 56.33, 58.12, 59.90, 61.67, 63.42, 65.17, 66.93,
+            68.72, 70.52, 72.33, 74.15, 75.99, 77.85, 79.72, 81.58, 83.43, 85.25,
+            87.05, 88.82, 90.57, 92.31, 94.01, 95.69, 97.33, 98.93, 100.47, 101.95,
+            103.47, 104.96, 106.45, 107.95, 109.46, 110.98, 112.51, 114.05, 115.60, 117.14,
+            118.62, 120.04, 121.36, 122.54, 123.57, 124.51, 125.43, 126.34, 127.29, 128.30,
+            129.39, 129.74, 130.10, 130.30, 131.19, 131.95, 132.21
+        ];
+        new Chart(document.getElementById('mexicoChart'), {
+            type: 'line',
+            data: { labels: years, datasets: [{ label: 'Mexico Population', data: mexicoData, borderColor: '#16a34a', backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6 }] },
+            options: { 
+                responsive: true, maintainAspectRatio: false, 
+                interaction: { mode: 'index', intersect: false },
+                plugins: { tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: ctx => ' Population: ' + ctx.parsed.y.toFixed(2) + ' Million' } } }, 
+                scales: { y: { title: { display: true, text: 'Millions' }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } 
+            }
+        });
+    </script>
+</body>
+</html>

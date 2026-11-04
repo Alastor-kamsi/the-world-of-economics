@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haiti GDP PPP Per Capita (International Dollars)</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Haiti: GDP PPP Per Capita (International Dollars) (1980-2026)</h2>
+        <div style="height: 400px;"><canvas id="pppPerCapitaChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="../haiti.html" style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Haiti Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+    <script>
+        // Source: IMF World Economic Outlook (October 2026) via IMF DataMapper.
+        // Values are shown for 1980-2026; missing observations remain blank.
+        const years = [1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+        const values = [1715.246,1863.668,1889.581,1899.97,1937.6,1978.316,1987.77,1992.233,2049.679,2063.925,2088.797,2146.895,2105.185,2007.645,1774.204,1953.185,2033.046,2085.208,2115.92,2165.27,2195.386,2200.303,2222.082,2308.147,2302.383,2408.616,2485.847,2629.681,2706.591,2836.817,2665.516,2813.708,2834.882,2960.619,3016.614,3075.08,3113.143,3200.275,3080.717,3057.23,2971.271,3004.66,3123.231,3137.885,3042.804,2998.008,3005.936];
+        if (!values.every(value => value === null)) {
+            new Chart(document.getElementById('pppPerCapitaChart'), {
+                type: 'line',
+                data: { labels: years, datasets: [{
+                    label: "PPP Per Capita", data: values, borderColor: "#20c599",
+                    backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6, tension: 0.3
+                }] },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: context => " " + "Haiti" + " PPP Per Capita: $" + context.parsed.y.toLocaleString() } }
+                    },
+                    scales: {
+                        y: { ticks: { callback: value => '$' + value.toLocaleString() }, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        } else {
+            const canvas = document.getElementById('pppPerCapitaChart');
+            const empty = document.createElement('p');
+            empty.textContent = 'No IMF data is available for this country and indicator.';
+            empty.style.cssText = 'color: #64748b; font-size: 16px; padding: 80px 20px; text-align: center;';
+            canvas.replaceWith(empty);
+        }
+    </script>
+</body>
+</html>

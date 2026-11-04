@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Population History</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">China: Total Population (1960–2026)</h2>
+        <div style="height: 400px;"><canvas id="chinaChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="index.html" 
+            style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const years = Array.from({length: 67}, (_, i) => 1960 + i);
+        const chinaData = [
+            667.07, 660.33, 665.77, 682.34, 698.35, 715.19, 735.40, 754.55, 774.51, 796.03,
+            818.32, 841.11, 862.03, 881.94, 900.35, 916.40, 930.69, 943.46, 956.17, 969.01,
+            981.24, 993.89, 1008.63, 1023.31, 1036.83, 1051.04, 1066.79, 1084.04, 1101.63, 1118.65,
+            1135.19, 1150.78, 1164.97, 1178.44, 1191.84, 1204.86, 1217.55, 1230.08, 1241.94, 1252.74,
+            1262.65, 1271.85, 1280.40, 1288.40, 1296.08, 1303.72, 1311.02, 1317.89, 1324.66, 1331.26,
+            1337.71, 1344.13, 1350.69, 1357.38, 1364.27, 1371.22, 1378.67, 1386.40, 1392.73, 1397.72,
+            1402.38, 1412.36, 1412.18, 1410.09, 1406.59, 1404.90, 1403.34
+        ];
+        new Chart(document.getElementById('chinaChart'), {
+            type: 'line',
+            data: { labels: years, datasets: [{ label: 'China Population', data: chinaData, borderColor: '#dc2626', backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6 }] },
+            options: { 
+                responsive: true, maintainAspectRatio: false, 
+                interaction: { mode: 'index', intersect: false },
+                plugins: { tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: ctx => ' Population: ' + ctx.parsed.y.toFixed(2) + ' Million (' + (ctx.parsed.y/1000).toFixed(3) + ' Billion)' } } }, 
+                scales: { y: { title: { display: true, text: 'Millions' }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } 
+            }
+        });
+    </script>
+</body>
+</html>

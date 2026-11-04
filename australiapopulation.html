@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia Population History</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Australia: Total Population (1960–2026)</h2>
+        <div style="height: 400px;"><canvas id="australiaChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="index.html" 
+            style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const years = Array.from({length: 67}, (_, i) => 1960 + i);
+        const australiaData = [
+            10.29, 10.51, 10.74, 10.95, 11.17, 11.39, 11.65, 11.80, 12.01, 12.26,
+            12.51, 13.07, 13.24, 13.41, 13.59, 13.89, 14.03, 14.19, 14.36, 14.51,
+            14.69, 14.93, 15.18, 15.37, 15.54, 15.79, 16.02, 16.26, 16.53, 16.81,
+            17.07, 17.28, 17.50, 17.67, 17.86, 18.00, 18.22, 18.42, 18.61, 18.81,
+            19.03, 19.27, 19.49, 19.72, 19.93, 20.18, 20.45, 20.83, 21.25, 21.69,
+            22.03, 22.34, 22.73, 23.13, 23.48, 23.82, 24.19, 24.60, 24.98, 25.37,
+            25.66, 25.69, 26.01, 26.44, 26.70, 26.96, 27.23
+        ];
+        new Chart(document.getElementById('australiaChart'), {
+            type: 'line',
+            data: { labels: years, datasets: [{ label: 'Australia Population', data: australiaData, borderColor: '#1e3a8a', backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6 }] },
+            options: { 
+                responsive: true, maintainAspectRatio: false, 
+                interaction: { mode: 'index', intersect: false },
+                plugins: { tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: ctx => ' Population: ' + ctx.parsed.y.toFixed(2) + ' Million' } } }, 
+                scales: { y: { title: { display: true, text: 'Millions' }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } } 
+            }
+        });
+    </script>
+</body>
+</html>

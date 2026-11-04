@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South America / My World of Economics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        /* Custom Read More Button Styling matching South America's warm/brown theme */
+        .btn-read-more {
+            background-color: #f5e6dc;
+            border: 1px solid #e2a87b;
+            color: #5c3a21;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-read-more:hover {
+            background-color: #edd5c5;
+            color: #3b2413;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container container-fluid">
+
+        <div class="row pt-3 mb-4 align-items-center">
+
+            <!-- Logo (Hidden on mobile/iPad screens, visible on desktop) -->
+            <div class="col-lg-2 me-lg-4 d-none d-lg-block">
+                <img src="project2logo.png" alt="kamsi" class="col-12 img-fluid"
+                    style="border: 2px solid #5c3a21; border-radius: 50%;">
+            </div>
+
+            <!-- Title & Hamburger Container (Side-by-side on mobile and iPad) -->
+            <div class="col-12 pb-lg-5 col-lg-8 pt-lg-5 d-flex align-items-center justify-content-between">
+                <div>
+                    <h1 class="mb-2 fs-3 fs-lg-1">My World of Economics</h1>
+                    <h5 class="mb-0 fs-6 fs-lg-5">Economic Education for All</h5>
+                </div>
+
+                <!-- Hamburger Button with a guaranteed visible icon -->
+                <button class="navbar-toggler d-lg-none ms-3 border-0 shadow-none fs-2 p-0" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span
+                        style="display: inline-block; width: 30px; height: 22px; background-image: url(&quot;data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e&quot;); background-repeat: no-repeat; background-position: center; background-size: 100%;"></span>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <nav class="navbar navbar-expand-lg bg-body-tertiary border-top border-bottom px-3 mb-5">
+
+                <div class="container-fluid">
+
+                    <!-- Collapsible Navbar -->
+                    <div class="collapse navbar-collapse" id="navbarNav">
+
+                        <!-- Navigation Links -->
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">
+                                    Home
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="asia.html">
+                                    Asia
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="africa.html">
+                                    Africa
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="europe.html">
+                                    Europe
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="northamerica.html">
+                                    North America
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="southamerica.html">
+                                    South America
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="oceania.html">
+                                    Oceania
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="comparison.html">
+                                    Comparison
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <div class="position-relative me-2">
+
+                            <form class="d-flex" onsubmit="southamericacountries(event)">
+
+                                <input class="form-control mx-2" type="search" id="inputsouthamerica"
+                                    placeholder="Search for a country" aria-label="Search" autocomplete="off">
+
+                                <button class="btn btn-outline-success" type="submit">
+                                    Search
+                                </button>
+
+                            </form>
+
+                            <div id="southAmericaSuggestions" class="list-group position-absolute w-100"
+                                style="z-index: 1000;"></div>
+
+                        </div>
+
+                        <!-- Donate Button -->
+                        <a href="donate.html" class="btn btn-success mt-2 mt-lg-0">
+                            Donate
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </nav>
+
+        </div>
+
+        <div class="row">
+            <div class="col col-12">
+                <img src="south america.jpg" alt="Kamsi" class="col-12 mb-5 img-fluid"
+                    style="background-color: #fdf6f0; border: 2px solid #5c3a21; border-radius: 10px; box-shadow: 5px 5px 5px;">
+            </div>
+        </div>
+
+        <div class="row mb-5 p-3"
+            style="background-color: #fdf6f0; border: 2px solid #e2a87b; border-radius: 10px; box-shadow: 2px 2px 2px rgba(0,0,0,0.15);">
+            <div class="col text-center">
+
+                <h1 class="mb-3">South America</h1>
+
+                <!-- Row 1: Countries & Territories Box with Read More Toggle Feature -->
+                <div class="row mt-4 g-4 px-3 px-md-5 mb-5 justify-content-center">
+
+                    <div class="col-md-6 mx-2 p-3 text-center"
+                        style="background-color: #fff9f5; border: 2px solid #e2a87b; border-radius: 10px; box-shadow: 2px 2px 2px rgba(0,0,0,0.15);">
+                        <h4 class="mt-2 mb-4 text-center">Countries & Territories</h4>
+                        
+                        <!-- Always visible countries -->
+                        <div class="mb-3"><a href="argentina.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Argentina</a></div>
+                        <div class="mb-3"><a href="brazil.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Brazil</a></div>
+
+                        <!-- Collapsible hidden countries / territories -->
+                        <div class="collapse" id="collapseSouthAmerica">
+                            <div class="mb-3"><a href="bolivia.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Bolivia</a></div>
+                            <div class="mb-3"><a href="chile.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Chile</a></div>
+                            <div class="mb-3"><a href="colombia.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Colombia</a></div>
+                            <div class="mb-3"><a href="ecuador.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Ecuador</a></div>
+                            <div class="mb-3"><a href="falklandislands.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Falkland Islands</a></div>
+                            <div class="mb-3"><a href="frenchguiana.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">French Guiana</a></div>
+                            <div class="mb-3"><a href="guyana.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Guyana</a></div>
+                            <div class="mb-3"><a href="paraguay.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Paraguay</a></div>
+                            <div class="mb-3"><a href="peru.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Peru</a></div>
+                            <div class="mb-3"><a href="southgeorgiaandsouthsandwichislands.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">South Georgia & South Sandwich Islands</a></div>
+                            <div class="mb-3"><a href="suriname.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Suriname</a></div>
+                            <div class="mb-3"><a href="uruguay.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Uruguay</a></div>
+                            <div class="mb-3"><a href="venezuela.html" class="text-decoration-none fw-bold" style="color: #5c3a21;">Venezuela</a></div>
+                        </div>
+
+                        <!-- Read More Toggle Button -->
+                        <button class="btn-read-more mt-3 toggle-region-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSouthAmerica" aria-expanded="false" aria-controls="collapseSouthAmerica">
+                            <span class="btn-text">READ MORE</span><span>&rarr;</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row py-5 g-4 align-items-stretch text-center"
+            style="background-color: #fdf6f0; border: 2px solid #e2a87b; border-radius: 10px; box-shadow: 2px 2px 2px;">
+
+            <!-- Logo -->
+            <div class="col-12 col-md-4">
+                <div class="h-100 p-4 d-flex justify-content-center align-items-center" style="background-color: #fff9f5;
+                    border: 2px solid #e2a87b;
+                    border-radius: 10px;
+                    box-shadow: 2px 2px 2px;">
+
+                    <img src="project2logo.png" alt="Economics Information Management Logo"
+                        class="img-fluid rounded-circle" style="max-width: 200px;
+                        border: 2px solid #e2a87b;">
+                </div>
+            </div>
+
+
+            <!-- Sources and Contacts -->
+            <div class="col-12 col-md-4">
+                <div class="h-100 p-4" style="background-color: #fff9f5;
+                    border: 2px solid #e2a87b;
+                    border-radius: 10px;
+                    box-shadow: 2px 2px 2px;">
+
+                    <h5 class="fw-bold mb-3">Our Sources</h5>
+
+                    <div class="d-flex flex-column gap-2 mb-4">
+                        <a href="https://www.worldeconomics.com/" target="_blank" class="text-decoration-none" style="color: #5c3a21;">
+                            World Economics
+                        </a>
+
+                        <a href="https://www.imf.org/" target="_blank" class="text-decoration-none" style="color: #5c3a21;">
+                            International Monetary Fund (IMF)
+                        </a>
+                    </div>
+
+
+                    <h5 class="fw-bold mb-3">Our Contacts</h5>
+
+                    <p class="mb-2">
+                        WhatsApp: +67 6761 6141
+                    </p>
+
+                    <span class="mb-0">Email: myworldofeconomics67</span>
+                    <span>@gmail.com</span>
+
+                </div>
+            </div>
+
+
+            <!-- Image -->
+            <div class="col-12 col-md-4">
+                <div class="h-100 p-3 d-flex justify-content-center align-items-center" style="background-color: #fff9f5;
+                    border: 2px solid #e2a87b;
+                    border-radius: 10px;
+                    box-shadow: 2px 2px 2px;">
+
+                    <div class="row">
+                        <div class="col">
+                            <h5>Find Out About Our Author</h5>
+                            <a href="https://alastor-kamsi.github.io/Kamsi-portflio/">
+                                <img src="kamsi.jpg" alt="Kamsi" class="img-fluid w-100" style="max-height: 250px;
+                                object-fit: cover;
+                                border: 2px solid #e2a87b;
+                                border-radius: 10px;
+                                box-shadow: 2px 2px 2px;">
+                            </a>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        // Toggle text between READ MORE and READ LESS when expanded/collapsed
+        document.querySelectorAll('.toggle-region-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const textSpan = this.querySelector('.btn-text');
+                setTimeout(() => {
+                    if (this.getAttribute('aria-expanded') === 'true') {
+                        textSpan.textContent = 'READ LESS';
+                    } else {
+                        textSpan.textContent = 'READ MORE';
+                    }
+                }, 150);
+            });
+        });
+
+        function southamericacountries(event) {
+            if (event) event.preventDefault();
+
+            const input = document.getElementById("inputsouthamerica");
+            const searchText = input.value.toLowerCase().trim();
+
+            const countryMap = {
+                "argentina": "argentina.html",
+                "bolivia": "bolivia.html",
+                "brazil": "brazil.html",
+                "chile": "chile.html",
+                "colombia": "colombia.html",
+                "ecuador": "ecuador.html",
+                "falkland islands": "falklandislands.html",
+                "french guiana": "frenchguiana.html",
+                "guyana": "guyana.html",
+                "paraguay": "paraguay.html",
+                "peru": "peru.html",
+                "south georgia & south sandwich islands": "southgeorgiaandsouthsandwichislands.html",
+                "south georgia and south sandwich islands": "southgeorgiaandsouthsandwichislands.html",
+                "suriname": "suriname.html",
+                "uruguay": "uruguay.html",
+                "venezuela": "venezuela.html"
+            };
+
+            if (countryMap[searchText]) {
+                window.location.href = countryMap[searchText];
+            } else {
+                alert("Country or territory not found.");
+            }
+        }
+
+        const countries = [
+            { name: "Argentina", link: "argentina.html" },
+            { name: "Bolivia", link: "bolivia.html" },
+            { name: "Brazil", link: "brazil.html" },
+            { name: "Chile", link: "chile.html" },
+            { name: "Colombia", link: "colombia.html" },
+            { name: "Ecuador", link: "ecuador.html" },
+            { name: "Falkland Islands", link: "falklandislands.html" },
+            { name: "French Guiana", link: "frenchguiana.html" },
+            { name: "Guyana", link: "guyana.html" },
+            { name: "Paraguay", link: "paraguay.html" },
+            { name: "Peru", link: "peru.html" },
+            { name: "South Georgia & South Sandwich Islands", link: "southgeorgiaandsouthsandwichislands.html" },
+            { name: "Suriname", link: "suriname.html" },
+            { name: "Uruguay", link: "uruguay.html" },
+            { name: "Venezuela", link: "venezuela.html" }
+        ];
+
+        const input = document.getElementById("inputsouthamerica");
+        const suggestions = document.getElementById("southAmericaSuggestions");
+
+        input.addEventListener("input", function () {
+            const searchText = input.value.toLowerCase().trim();
+            suggestions.innerHTML = "";
+
+            if (searchText === "") {
+                return;
+            }
+
+            const filteredCountries = countries.filter(function (country) {
+                return country.name.toLowerCase().startsWith(searchText);
+            });
+
+            filteredCountries.forEach(function (country) {
+                const option = document.createElement("a");
+                option.href = country.link;
+                option.className = "list-group-item list-group-item-action";
+                option.textContent = country.name;
+                suggestions.appendChild(option);
+            });
+        });
+    </script>
+</body>
+
+</html>

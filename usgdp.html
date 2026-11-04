@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>United States GDP</title>
+</head>
+
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+
+    <div style="
+        max-width: 800px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    ">
+
+        <h2 style="
+            color: #0f172a;
+            margin-top: 0;
+            margin-bottom: 20px;
+        ">
+            United States: Nominal GDP (Trillion USD)
+        </h2>
+
+        <div style="height: 400px;">
+            <canvas id="usaGDPChart"></canvas>
+        </div>
+
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="index.html" 
+            style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Home</a>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+
+        // Dataset begins in 1960, so the chart starts from 1960.
+
+        const years = [
+            1960, 1961, 1962, 1963, 1964, 1965, 1966,
+            1967, 1968, 1969, 1970, 1971, 1972, 1973,
+            1974, 1975, 1976, 1977, 1978, 1979, 1980,
+            1981, 1982, 1983, 1984, 1985, 1986, 1987,
+            1988, 1989, 1990, 1991, 1992, 1993, 1994,
+            1995, 1996, 1997, 1998, 1999, 2000, 2001,
+            2002, 2003, 2004, 2005, 2006, 2007, 2008,
+            2009, 2010, 2011, 2012, 2013, 2014, 2015,
+            2016, 2017, 2018, 2019, 2020, 2021, 2022,
+            2023, 2024, 2025, 2026
+        ];
+
+        const gdp = [
+            0.54, 0.56, 0.60, 0.64, 0.69, 0.74, 0.81,
+            0.86, 0.94, 1.02, 1.07, 1.16, 1.28, 1.43,
+            1.55, 1.68, 1.87, 2.08, 2.35, 2.63, 2.86,
+            3.21, 3.34, 3.63, 4.04, 4.34, 4.58, 4.86,
+            5.24, 5.64, 5.96, 6.16, 6.52, 6.86, 7.29,
+            7.64, 8.08, 8.58, 9.06, 9.63, 10.25, 10.58,
+            10.93, 11.46, 12.22, 13.04, 13.82, 14.47,
+            14.77, 14.48, 15.05, 15.60, 16.25, 16.88,
+            17.61, 18.30, 18.80, 19.61, 20.66, 21.54,
+            21.35, 23.68, 26.01, 27.72, 28.75, 30.77, 32.17
+        ];
+
+        new Chart(document.getElementById('usaGDPChart'), {
+
+            type: 'line',
+
+            data: {
+                labels: years,
+
+                datasets: [{
+                    label: 'USA GDP',
+
+                    data: gdp,
+
+                    // U.S.-inspired deep blue
+                    borderColor: '#1d4ed8',
+                    backgroundColor: 'transparent',
+
+                    borderWidth: 3,
+
+                    // Clean line style
+                    pointRadius: 0,
+                    pointHoverRadius: 6,
+
+                    tension: 0.3
+                }]
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: false,
+
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+
+                plugins: {
+
+                    // Hide the legend to match the Japan chart
+                    legend: {
+                        display: false
+                    },
+
+                    tooltip: {
+
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                        padding: 12,
+
+                        callbacks: {
+                            label: function (context) {
+                                return ' GDP: $' +
+                                    context.parsed.y.toFixed(2) +
+                                    ' trillion';
+                            }
+                        }
+                    }
+                },
+
+                scales: {
+
+                    y: {
+
+                        min: 0,
+                        max: 35,
+
+                        ticks: {
+                            callback: function (value) {
+                                return '$' + value + 'T';
+                            }
+                        },
+
+                        grid: {
+                            color: '#f1f5f9'
+                        }
+                    },
+
+                    x: {
+
+                        grid: {
+                            display: false
+                        },
+
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominica GDP PPP Per Capita (International Dollars)</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Dominica: GDP PPP Per Capita (International Dollars) (1981-2026)</h2>
+        <div style="height: 400px;"><canvas id="pppPerCapitaChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="../dominica.html" style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Dominica Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+    <script>
+        // Source: IMF World Economic Outlook (October 2026) via IMF DataMapper.
+        // Values are shown for 1981-2026; missing observations remain blank.
+        const years = [1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+        const values = [2173.079,2411.276,2579.029,2794.304,2934.181,3216.55,3516.823,3939.609,4101.024,4501.228,4733.163,4938.893,5164.836,5276.485,5549.881,5826.485,6055.976,6354.631,6466.879,6767.526,6914.987,6828.628,7411.104,7848.108,8153.102,8802.316,9622.04,10513.206,10461.718,10675.226,10990.132,11154.961,11202.516,11807.407,11469.672,11890.468,11588.946,13051.491,14290.879,12505.036,14212.229,15997.318,17292.621,18271.976,19507.256,20692.782];
+        if (!values.every(value => value === null)) {
+            new Chart(document.getElementById('pppPerCapitaChart'), {
+                type: 'line',
+                data: { labels: years, datasets: [{
+                    label: "PPP Per Capita", data: values, borderColor: "#20c599",
+                    backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6, tension: 0.3
+                }] },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: context => " " + "Dominica" + " PPP Per Capita: $" + context.parsed.y.toLocaleString() } }
+                    },
+                    scales: {
+                        y: { ticks: { callback: value => '$' + value.toLocaleString() }, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        } else {
+            const canvas = document.getElementById('pppPerCapitaChart');
+            const empty = document.createElement('p');
+            empty.textContent = 'No IMF data is available for this country and indicator.';
+            empty.style.cssText = 'color: #64748b; font-size: 16px; padding: 80px 20px; text-align: center;';
+            canvas.replaceWith(empty);
+        }
+    </script>
+</body>
+</html>

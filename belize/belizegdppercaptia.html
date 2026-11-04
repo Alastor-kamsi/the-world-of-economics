@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belize GDP Per Capita (USD)</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Belize: GDP Per Capita (USD) (1981-2026)</h2>
+        <div style="height: 400px;"><canvas id="perCapitaChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="../belize.html" style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Belize Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+    <script>
+        // Source: IMF World Economic Outlook (October 2026) via IMF DataMapper.
+        // Values are shown for 1981-2026; missing observations remain blank.
+        const years = [1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+        const values = [1584.006,1553.693,1593.323,1730.803,1670.287,1768.405,2015.273,2334.537,2623.361,2892.862,3075.681,3496.187,3669.537,3658,3781.017,3830.356,3795.287,3895.375,4113.114,4556.836,4576.71,4736.493,4856.653,5066.202,5198.495,5464.195,5710.295,5666.241,5357.376,5424.01,5577.698,5737.057,5956.861,6123.803,6148.204,6150.767,6102.103,6035.101,6166.947,5209.415,6081.048,7161.557,7551.652,7796.261,7954.163,8078.185];
+        if (!values.every(value => value === null)) {
+            new Chart(document.getElementById('perCapitaChart'), {
+                type: 'line',
+                data: { labels: years, datasets: [{
+                    label: "GDP Per Capita", data: values, borderColor: "#47c520",
+                    backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6, tension: 0.3
+                }] },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: context => " " + "Belize" + " GDP Per Capita: $" + context.parsed.y.toLocaleString() } }
+                    },
+                    scales: {
+                        y: { ticks: { callback: value => '$' + value.toLocaleString() }, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        } else {
+            const canvas = document.getElementById('perCapitaChart');
+            const empty = document.createElement('p');
+            empty.textContent = 'No IMF data is available for this country and indicator.';
+            empty.style.cssText = 'color: #64748b; font-size: 16px; padding: 80px 20px; text-align: center;';
+            canvas.replaceWith(empty);
+        }
+    </script>
+</body>
+</html>

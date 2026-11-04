@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan Nominal GDP (Trillion USD)</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Japan: Nominal GDP (Trillion USD) (1980-2026)</h2>
+        <div style="height: 400px;"><canvas id="gdpChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="../japan.html" style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Japan Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+    <script>
+        // Source: IMF World Economic Outlook (October 2026) via IMF DataMapper.
+        // Values are shown for 1980-2026; missing observations remain blank.
+        const years = [1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+        const values = [1.155182,1.273672,1.185206,1.299897,1.376575,1.459625,2.168525,2.639715,3.197143,3.180501,3.258697,3.731419,4.071656,4.640603,5.104062,5.639651,5.021444,4.579783,4.15036,4.688982,5.042382,4.438791,4.245946,4.573415,4.941505,4.875649,4.648058,4.624668,5.160198,5.336766,5.811577,6.279423,6.333803,5.272297,4.985764,4.534438,5.110357,5.038232,5.154293,5.245755,5.189197,5.227016,4.444939,4.389312,4.20763,4.453094,4.341986];
+        if (!values.every(value => value === null)) {
+            const maxValue = Math.max(...values.filter(value => value !== null));
+            const displayUnit = maxValue < 0.001
+                ? { factor: 1000000, suffix: "M", title: "Million USD", tooltip: "million USD" }
+                : maxValue < 1
+                    ? { factor: 1000, suffix: "B", title: "Billion USD", tooltip: "billion USD" }
+                    : { factor: 1, suffix: "T", title: "Trillion USD", tooltip: "trillion USD" };
+            const displayValues = values.map(value => value === null ? null : value * displayUnit.factor);
+            const formatMagnitude = value => new Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(value);
+            const formatAxis = value => "$" + formatMagnitude(value) + displayUnit.suffix;
+            document.title = document.title.replace("(Trillion USD)", "(" + displayUnit.title + ")");
+            document.querySelector("h2").textContent = document.querySelector("h2").textContent.replace("(Trillion USD)", "(" + displayUnit.title + ")");
+            new Chart(document.getElementById('gdpChart'), {
+                type: 'line',
+                data: { labels: years, datasets: [{
+                    label: "GDP", data: displayValues, borderColor: "#c5a420",
+                    backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6, tension: 0.3
+                }] },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: context => " " + "Japan" + " GDP: $" + formatMagnitude(context.parsed.y) + " " + displayUnit.tooltip } }
+                    },
+                    scales: {
+                        y: { ticks: { callback: value => formatAxis(value) }, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        } else {
+            const canvas = document.getElementById('gdpChart');
+            const empty = document.createElement('p');
+            empty.textContent = 'No IMF data is available for this country and indicator.';
+            empty.style.cssText = 'color: #64748b; font-size: 16px; padding: 80px 20px; text-align: center;';
+            canvas.replaceWith(empty);
+        }
+    </script>
+</body>
+</html>

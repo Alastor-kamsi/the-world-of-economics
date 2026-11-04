@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenya Nominal GDP (Trillion USD)</title>
+</head>
+<body style="background-color: #f8fafc; font-family: -apple-system, sans-serif; padding: 20px; margin: 0;">
+    <div style="max-width: 800px; margin: 40px auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        <h2 style="color: #0f172a; margin-top: 0; margin-bottom: 20px;">Kenya: Nominal GDP (Trillion USD) (1980-2026)</h2>
+        <div style="height: 400px;"><canvas id="gdpChart"></canvas></div>
+        <div id="return-home-button" style="display: flex; justify-content: center; margin-top: 28px;">
+            <a class="return-home-button" href="../kenya.html" style="display: inline-block; padding: 12px 26px; border-radius: 999px; background: #0f766e; color: #ffffff; text-decoration: none; font-weight: 600; letter-spacing: 0.01em; box-shadow: 0 5px 12px rgba(15, 118, 110, 0.24); transition: background-color 0.2s ease, transform 0.2s ease;" onmouseover="this.style.backgroundColor='#115e59'; this.style.transform='translateY(-1px)'" onmouseout="this.style.backgroundColor='#0f766e'; this.style.transform='translateY(0)'">Return to Kenya Home</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7"></script>
+    <script>
+        // Source: IMF World Economic Outlook (October 2026) via IMF DataMapper.
+        // Values are shown for 1980-2026; missing observations remain blank.
+        const years = [1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+        const values = [0.013449,0.012667,0.012196,0.011279,0.011703,0.011646,0.013832,0.015163,0.015721,0.015586,0.016219,0.015315,0.015084,0.010479,0.012546,0.015905,0.018064,0.0183,0.02063,0.018594,0.018206,0.018697,0.01903,0.021391,0.02279,0.026307,0.029668,0.036708,0.041058,0.042347,0.045406,0.046555,0.056407,0.061703,0.068395,0.07037,0.074816,0.081965,0.092211,0.100328,0.100922,0.109875,0.114733,0.108206,0.119364,0.135919,0.151151];
+        if (!values.every(value => value === null)) {
+            const maxValue = Math.max(...values.filter(value => value !== null));
+            const displayUnit = maxValue < 0.001
+                ? { factor: 1000000, suffix: "M", title: "Million USD", tooltip: "million USD" }
+                : maxValue < 1
+                    ? { factor: 1000, suffix: "B", title: "Billion USD", tooltip: "billion USD" }
+                    : { factor: 1, suffix: "T", title: "Trillion USD", tooltip: "trillion USD" };
+            const displayValues = values.map(value => value === null ? null : value * displayUnit.factor);
+            const formatMagnitude = value => new Intl.NumberFormat("en-US", { maximumSignificantDigits: 3 }).format(value);
+            const formatAxis = value => "$" + formatMagnitude(value) + displayUnit.suffix;
+            document.title = document.title.replace("(Trillion USD)", "(" + displayUnit.title + ")");
+            document.querySelector("h2").textContent = document.querySelector("h2").textContent.replace("(Trillion USD)", "(" + displayUnit.title + ")");
+            new Chart(document.getElementById('gdpChart'), {
+                type: 'line',
+                data: { labels: years, datasets: [{
+                    label: "GDP", data: displayValues, borderColor: "#c5a420",
+                    backgroundColor: 'transparent', borderWidth: 3, pointRadius: 0, pointHoverRadius: 6, tension: 0.3
+                }] },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, callbacks: { label: context => " " + "Kenya" + " GDP: $" + formatMagnitude(context.parsed.y) + " " + displayUnit.tooltip } }
+                    },
+                    scales: {
+                        y: { ticks: { callback: value => formatAxis(value) }, grid: { color: '#f1f5f9' } },
+                        x: { grid: { display: false }, ticks: { maxRotation: 45, minRotation: 45 } }
+                    }
+                }
+            });
+        } else {
+            const canvas = document.getElementById('gdpChart');
+            const empty = document.createElement('p');
+            empty.textContent = 'No IMF data is available for this country and indicator.';
+            empty.style.cssText = 'color: #64748b; font-size: 16px; padding: 80px 20px; text-align: center;';
+            canvas.replaceWith(empty);
+        }
+    </script>
+</body>
+</html>
